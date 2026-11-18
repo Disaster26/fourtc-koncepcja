@@ -1,0 +1,543 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Cyberbezpieczeństwo i infrastruktura IT Gdańsk | fourTC</title>
+<meta name="description" content="fourTC z Gdańska: audyty bezpieczeństwa IT, obsługa incydentów, projektowanie, wdrożenia i utrzymanie infrastruktury IT oraz własne platformy logTC i siemTC. Tel. 530 427 979.">
+<meta name="theme-color" content="#003070">
+<link rel="icon" href="img/znak.svg" type="image/svg+xml">
+<link rel="preload" as="font" type="font/woff2" href="fonts/saira-rdzen.woff2" crossorigin>
+<style>
+@font-face{font-family:Saira;src:url(fonts/saira-rdzen.woff2) format("woff2");font-weight:400 800;font-stretch:100% 125%;font-display:swap;unicode-range:U+0020-007E,U+00A0,U+00A9,U+00AB,U+00B0,U+00B7,U+00BB,U+00D3,U+00D7,U+00F3,U+2013-2014,U+2018-2019,U+201C-201E,U+2022,U+2026,U+2192,U+20AC}
+@font-face{font-family:Saira;src:url(fonts/saira-pl.woff2) format("woff2");font-weight:400 800;font-stretch:100% 125%;font-display:swap;unicode-range:U+0104-0107,U+0118-0119,U+0141-0144,U+015A-015B,U+0179-017C}
+@font-face{font-family:"Saira fb";src:local("Arial");size-adjust:103%;ascent-override:96%;descent-override:26%}
+:root{--navy:#003070;--navy2:#0a3f8a;--deep:#00214f;--steel:#5884ac;--steel2:#8fb1d2;--ink:#0b1426;--mut:#46536a;--g:#eef1f5;--line:#d6dde7;--hh:64px;--w:min(calc(100vw - 32px),1680px)}
+@media (min-width:900px){:root{--hh:80px;--w:min(92vw,1880px)}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:var(--hh);-webkit-text-size-adjust:100%}
+body{margin:0;font-family:Saira,"Saira fb",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:clamp(16px,.22vw + 15px,19px);line-height:1.6;color:var(--ink);background:#fff;overflow-x:hidden}
+img,svg{display:block;max-width:100%}
+a{color:inherit}
+h1,h2,h3{margin:0;font-weight:700;line-height:1.08;letter-spacing:-.005em}
+h2{font-size:clamp(30px,3vw,58px);font-stretch:112%;color:var(--navy)}
+h3{font-size:clamp(19px,1.15vw,23px);font-stretch:108%;font-weight:700;line-height:1.2;color:var(--navy)}
+p{margin:0}
+.wrap{width:var(--w);margin:0 auto}
+.skip{position:absolute;left:-999px}.skip:focus{left:16px;top:8px;z-index:99;background:#fff;padding:8px 12px}
+
+/* przycisk: sciete narozniki pod 45 st. jak krawedzie znaku */
+.btn{--c:var(--navy);--t:#fff;display:inline-flex;align-items:center;gap:14px;min-height:56px;padding:0 30px;background:var(--c);color:var(--t);font:700 1.02rem/1 Saira,"Saira fb",Arial,sans-serif;font-stretch:110%;text-decoration:none;border:0;cursor:pointer;clip-path:polygon(14px 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%,0 14px);-webkit-tap-highlight-color:transparent;transition:background .15s}
+.btn i{width:12px;height:12px;border-top:2.5px solid currentColor;border-right:2.5px solid currentColor;transform:rotate(45deg);margin-left:2px;transition:transform .15s}
+.btn:hover{--c:var(--navy2)}.btn:hover i{transform:translateX(3px) rotate(45deg)}
+.btn.jas{--c:#fff;--t:var(--navy)}.btn.jas:hover{--c:#e3ecf7}
+.btn:focus-visible,.menu a:focus-visible{outline:3px solid var(--steel);outline-offset:3px}
+
+/* naglowek */
+.top{position:sticky;top:0;z-index:50;height:var(--hh);background:#fff;border-bottom:1px solid transparent;transition:border-color .2s,box-shadow .2s}
+.top.sc{border-bottom-color:var(--line);box-shadow:0 6px 18px rgba(0,33,79,.07)}
+.top .wrap{height:100%;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--navy);flex:none}
+.logo .zn{width:38px;height:38px}
+.logo .wm{height:26px;width:auto}
+.menu{display:flex;align-items:center;gap:clamp(14px,1.5vw,32px)}
+.menu a{text-decoration:none;font-weight:600;font-size:.97rem;position:relative;padding:6px 0;white-space:nowrap}
+.menu a:not(.btn):not(.tel)::after{content:"";position:absolute;left:0;right:0;bottom:-3px;height:3px;background:var(--steel);transform:scaleX(0);transform-origin:left;transition:transform .2s}
+.menu a.on::after,.menu a:not(.btn):not(.tel):hover::after{transform:none}
+.menu .tel{font-weight:700;color:var(--navy);display:flex;align-items:center;gap:8px}
+.menu .btn{min-height:46px;padding:0 20px;font-size:.95rem}
+.ikt,.burger{display:none}
+@media (max-width:1320px){.menu .tel{display:none}}
+@media (max-width:1100px){
+  .menu{position:fixed;inset:var(--hh) 0 auto 0;background:#fff;flex-direction:column;align-items:stretch;gap:0;padding:6px 16px 22px;border-top:1px solid var(--line);box-shadow:0 18px 30px rgba(0,33,79,.14);transform:translateY(-8px);opacity:0;visibility:hidden;transition:.2s;max-height:calc(100svh - var(--hh));overflow:auto}
+  .top.open .menu{transform:none;opacity:1;visibility:visible}
+  .menu a{padding:14px 2px;border-bottom:1px solid var(--g);font-size:1.08rem}
+  .menu a:not(.btn):not(.tel)::after{display:none}
+  .menu a.on{color:var(--navy);box-shadow:inset 4px 0 0 var(--steel);padding-left:14px}
+  .menu .tel{display:flex}
+  .menu .btn{margin-top:16px;justify-content:center;min-height:54px}
+  .ikt{display:inline-grid;place-items:center;width:44px;height:44px;margin-left:auto;color:var(--navy)}
+  .ikt svg{width:24px;height:24px}
+  .burger{display:inline-grid;place-items:center;width:44px;height:44px;border:0;background:var(--navy);cursor:pointer;padding:0;clip-path:polygon(8px 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%,0 8px)}
+  .burger span,.burger span::before,.burger span::after{display:block;width:20px;height:2px;background:#fff;position:relative;transition:.2s}
+  .burger span::before,.burger span::after{content:"";position:absolute;left:0}
+  .burger span::before{top:-6px}.burger span::after{top:6px}
+  .top.open .burger span{background:transparent}
+  .top.open .burger span::before{top:0;transform:rotate(45deg)}
+  .top.open .burger span::after{top:0;transform:rotate(-45deg)}
+}
+@media (max-width:420px){.logo .wm{height:22px}.logo .zn{width:32px;height:32px}}
+
+/* HERO: labirynt ze znaku */
+.hero{position:relative;background:var(--navy);color:#fff;min-height:calc(100svh - var(--hh));display:flex;overflow:hidden;isolation:isolate;padding:0}
+.hero .mz{position:absolute;z-index:-1;aspect-ratio:1;height:165%;top:50%;right:-14%;transform:translateY(-50%)}
+.hero .mz svg{width:100%;height:100%}
+.mz-w path{stroke:rgba(255,255,255,.17);stroke-width:5}
+.mz-p{stroke:var(--steel2);stroke-width:7;stroke-dasharray:var(--len);stroke-dashoffset:var(--len);animation:droga 3.2s cubic-bezier(.55,.1,.3,1) .35s forwards}
+.mz-c{fill:#fff;opacity:0;animation:cel .5s ease-out 3.4s forwards}
+@keyframes droga{to{stroke-dashoffset:0}}
+@keyframes cel{to{opacity:1}}
+@media (prefers-reduced-motion:reduce){.mz-p{animation:none;stroke-dashoffset:0}.mz-c{animation:none;opacity:1}}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,var(--navy) 0,rgba(0,48,112,.9) 32%,rgba(0,48,112,.25) 52%,rgba(0,48,112,0) 62%)}
+.hero .wrap{display:flex;flex-direction:column;justify-content:center;padding:clamp(32px,6vh,96px) 0}
+.hero-in{max-width:min(1180px,58vw)}
+.hero .gdzie{font-size:1rem;color:var(--steel2);font-weight:600;margin-bottom:22px;display:flex;align-items:center;gap:12px}
+.hero .gdzie::before{content:"";width:11px;height:11px;border:2px solid currentColor;transform:rotate(45deg);flex:none}
+.hero h1{font-size:clamp(38px,min(4.5vw,7.2vh),92px);font-stretch:118%;font-weight:700;line-height:1.03;letter-spacing:-.012em}
+.hero .lead{font-size:clamp(17px,1.15vw,22px);line-height:1.55;color:#d9e5f3;margin-top:26px;max-width:min(720px,100%)}
+.hero .cta{margin-top:36px;display:flex;flex-wrap:wrap;align-items:center;gap:20px 28px}
+.hero .motto{font-weight:600;font-stretch:125%;letter-spacing:.2em;font-size:.82rem;color:var(--steel2);text-transform:uppercase}
+.hero .motto b{color:#fff;font-weight:600}
+@media (max-width:899px){
+  .hero{flex-direction:column}
+  .hero::after{background:linear-gradient(180deg,rgba(0,48,112,0) 0,rgba(0,48,112,.25) 26%,var(--navy) 50%)}
+  .hero::after{display:none}
+  .hero .mz{position:relative;z-index:0;height:auto;width:100%;aspect-ratio:auto;top:auto;right:auto;transform:none;flex:1 1 auto;min-height:24svh;overflow:hidden}
+  .hero .mz svg{position:absolute;inset:0;transform:scale(1.55)}
+  .hero .mz::after{content:"";position:absolute;left:0;right:0;bottom:0;height:45%;background:linear-gradient(rgba(0,48,112,0),var(--navy))}
+  .hero .wrap{flex:0 0 auto;justify-content:flex-end;padding:0 0 30px}
+  .hero-in{max-width:none}
+  .hero .gdzie{margin-bottom:14px;font-size:.95rem}
+  .hero h1{font-size:clamp(27px,min(8.3vw,5.4svh),44px);font-stretch:100%}
+  .hero .lead{font-size:clamp(15.5px,min(4.3vw,2.6svh),18px);margin-top:16px}
+  .hero .cta{margin-top:26px;gap:14px 20px}
+  .hero .cta .btn{width:100%;justify-content:center}
+  .hero .cta .btn .dl{display:none}
+}
+
+/* sekcje */
+section{padding:clamp(64px,8vw,140px) 0}
+.szary{background:var(--g)}
+.glowa{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px 8vw;align-items:end;margin-bottom:clamp(36px,4vw,72px)}
+.glowa p{color:var(--mut);max-width:640px}
+@media (max-width:899px){.glowa{grid-template-columns:minmax(0,1fr)}}
+/* separator: linia z zalamaniem pod 45 st. (sciezka labiryntu) */
+.rysa{height:14px;margin:0 0 clamp(28px,3vw,44px);background:linear-gradient(var(--navy),var(--navy)) 0 100%/72px 2.5px no-repeat}
+.rysa{position:relative;width:110px}
+.rysa::after{content:"";position:absolute;left:69px;bottom:0;width:16px;height:2.5px;background:var(--navy);transform-origin:left bottom;transform:rotate(-45deg)}
+.rysa::before{content:"";position:absolute;left:80px;top:1px;width:30px;height:2.5px;background:var(--navy)}
+.ciem .rysa,.ciem .rysa::after,.ciem .rysa::before{background-color:#fff}
+
+/* uslugi bezpieczenstwa */
+.ochrona{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:2px solid var(--navy)}
+.ochrona article{padding:30px 28px 10px 0;position:relative}
+.ochrona article+article{padding-left:28px;border-left:1px solid var(--line)}
+.ochrona .zn{width:26px;height:26px;margin-bottom:22px}
+.ochrona h3{margin-bottom:12px}
+.ochrona p{color:var(--mut);font-size:.98em}
+@media (max-width:1100px){.ochrona{grid-template-columns:repeat(2,minmax(0,1fr))}.ochrona article:nth-child(3){padding-left:0;border-left:0}.ochrona article:nth-child(n+3){border-top:1px solid var(--line)}}
+@media (max-width:600px){.ochrona{grid-template-columns:minmax(0,1fr)}.ochrona article,.ochrona article+article{padding:24px 0 22px;border-left:0}.ochrona article+article{border-top:1px solid var(--line)}}
+
+/* infrastruktura: trzy etapy na jednej sciezce */
+.etapy{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 clamp(24px,3vw,56px);position:relative}
+.etap{position:relative;padding-top:56px}
+.etap::before{content:"";position:absolute;left:0;right:calc(-1 * clamp(24px,3vw,56px));top:15px;height:2.5px;background:var(--navy)}
+.etap:last-child::before{right:0}
+.etap::after{content:"";position:absolute;left:0;top:4px;width:20px;height:20px;background:var(--g);border:2.5px solid var(--navy);transform:rotate(45deg)}
+.etap:last-child::after{background:var(--navy)}
+.etap h3{font-size:clamp(22px,1.6vw,30px);margin-bottom:14px}
+.etap p{color:var(--mut)}
+.etap ul{list-style:none;padding:0;margin:20px 0 0;display:flex;flex-wrap:wrap;gap:8px}
+.etap li{font-size:.86rem;font-weight:600;color:var(--navy);background:#fff;padding:5px 12px;border:1px solid var(--line)}
+@media (max-width:899px){
+  .etapy{grid-template-columns:minmax(0,1fr)}
+  .etap{padding:0 0 38px 46px}
+  .etap::before{left:9px;right:auto;top:20px;bottom:-4px;width:2.5px;height:auto}
+  .etap:last-child::before{display:none}
+  .etap::after{top:2px}
+  .etap:last-child{padding-bottom:0}
+}
+
+/* platformy */
+.plat{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(16px,2vw,32px)}
+.pk{background:var(--navy);color:#fff;padding:clamp(28px,3vw,56px);display:flex;flex-direction:column;clip-path:polygon(28px 0,100% 0,100% calc(100% - 28px),calc(100% - 28px) 100%,0 100%,0 28px)}
+.pk.d{background:var(--deep)}
+.pk .naz{font-size:clamp(34px,3vw,56px);font-weight:700;font-stretch:122%;line-height:1;letter-spacing:-.01em}
+.pk .naz span{color:transparent;-webkit-text-stroke:1.6px #fff}
+.pk .pod{font-size:clamp(18px,1.2vw,23px);font-weight:600;font-stretch:106%;margin-top:12px;color:#dbe7f5}
+.pk p{color:#c9d8ea;margin-top:16px}
+.pk svg.sch{margin:clamp(24px,2.4vw,40px) 0;width:100%;height:auto}
+.sch text{font:600 13px Saira,"Saira fb",Arial,sans-serif;fill:#dbe7f5}
+.sch .l{stroke:var(--steel2);stroke-width:2;fill:none}
+.sch .b{fill:none;stroke:#fff;stroke-width:2}
+.sch .bf{fill:#fff}
+.pk ul{list-style:none;margin:auto 0 0;padding:0;border-top:1px solid rgba(255,255,255,.2)}
+.pk li{padding:12px 0 12px 26px;border-bottom:1px solid rgba(255,255,255,.12);position:relative;font-weight:500}
+.pk li::before{content:"";position:absolute;left:3px;top:20px;width:8px;height:8px;border:2px solid var(--steel2);transform:rotate(45deg)}
+.pk li b{font-weight:700;color:#fff}
+.pk li span{color:#b9cce3}
+.pk .wd{margin-top:22px;font-size:.92rem;color:#b9cce3}
+@media (max-width:999px){.plat{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:600px){.pk svg.sch{display:none}.pk .pod{margin-bottom:22px}}
+.zgod{margin-top:clamp(28px,3vw,48px);display:grid;grid-template-columns:auto minmax(0,1fr);gap:18px 28px;align-items:center;padding-top:28px;border-top:1px solid var(--line)}
+.zgod b{font-stretch:112%;color:var(--navy);font-size:1.1rem}
+.zgod p{color:var(--mut)}
+@media (max-width:700px){.zgod{grid-template-columns:minmax(0,1fr)}}
+
+/* realizacje - przesuwane palcem */
+.real{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 2 * clamp(16px,2vw,32px)) / 3);gap:clamp(16px,2vw,32px);overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding-bottom:4px;cursor:grab}
+.real::-webkit-scrollbar{display:none}
+.real.drag{cursor:grabbing;scroll-snap-type:none}
+.rk{scroll-snap-align:start;background:#fff;border-top:4px solid var(--navy);padding:clamp(24px,2.4vw,40px);display:flex;flex-direction:column;user-select:none}
+.rk svg{width:100%;height:auto;max-height:150px;margin-bottom:26px}
+.rk svg .b{fill:none;stroke:var(--navy);stroke-width:2.5}
+.rk svg .s{fill:none;stroke:var(--steel);stroke-width:2.5;stroke-dasharray:6 6}
+.rk svg .f{fill:var(--navy)}
+.rk h3{font-size:clamp(21px,1.5vw,28px);margin-bottom:14px}
+.rk p{color:var(--mut)}
+.rk .wyn{margin-top:auto;padding-top:20px;font-weight:600;color:var(--navy);font-size:.95em}
+.nawig{display:none;gap:10px;margin-top:22px;align-items:center}
+.nawig button{width:46px;height:46px;border:2px solid var(--navy);background:#fff;cursor:pointer;display:grid;place-items:center}
+.nawig button i{width:11px;height:11px;border-top:2.5px solid var(--navy);border-right:2.5px solid var(--navy);transform:rotate(45deg);margin-right:4px}
+.nawig button.wst i{transform:rotate(-135deg);margin:0 0 0 4px}
+.nawig span{margin-left:8px;font-weight:600;color:var(--mut);font-size:.95rem}
+@media (max-width:999px){.real{grid-auto-columns:min(78vw,460px)}.nawig{display:flex}}
+
+/* o nas */
+.onas{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:40px 8vw;align-items:start}
+.onas .tekst p{font-size:clamp(18px,1.25vw,23px);line-height:1.55;margin-top:22px}
+.onas .tekst p+p{font-size:1em;color:var(--mut)}
+.obsz{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px;list-style:none;padding:0}
+.obsz li{border:2px solid var(--navy);color:var(--navy);font-weight:600;padding:8px 16px;font-size:.95rem}
+.dane{background:var(--g);padding:clamp(26px,2.6vw,44px);position:relative;clip-path:polygon(0 0,calc(100% - 28px) 0,100% 28px,100% 100%,0 100%)}
+.dane h3{margin-bottom:18px}
+.dane dl{margin:0;display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px 22px}
+.dane dt{color:var(--mut)}
+.dane dd{margin:0;font-weight:600}
+@media (max-width:899px){.onas{grid-template-columns:minmax(0,1fr)}}
+
+/* kontakt */
+.kont{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:40px 6vw;align-items:start}
+.kdane{display:grid;gap:0;margin-top:30px;border-top:2px solid var(--navy)}
+.kdane a,.kdane div{display:flex;gap:16px;align-items:center;padding:18px 0;border-bottom:1px solid var(--line);text-decoration:none}
+.kdane svg{width:22px;height:22px;flex:none;color:var(--navy)}
+.kdane b{display:block;font-size:clamp(18px,1.3vw,24px);font-stretch:110%;color:var(--navy);line-height:1.2}
+.kdane small{display:block;color:var(--mut);font-size:.88rem}
+form{background:#fff;padding:clamp(24px,3vw,48px);display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;border-top:4px solid var(--navy)}
+form label{display:grid;gap:6px;font-weight:600;font-size:.93rem;color:var(--navy)}
+form .cala{grid-column:1/-1}
+input,select,textarea{font:inherit;font-size:16px;font-weight:400;color:var(--ink);border:1.5px solid #b9c4d3;background:#fff;padding:12px 14px;border-radius:0;width:100%;min-width:0}
+textarea{min-height:130px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--navy);box-shadow:0 0 0 3px rgba(88,132,172,.3)}
+form .zg{display:flex;gap:10px;align-items:flex-start;font-weight:400;color:var(--mut);font-size:.88rem}
+form .zg input{width:20px;height:20px;flex:none;margin-top:2px}
+form .btn{justify-self:start}
+.info{grid-column:1/-1;font-size:.92rem;color:var(--navy);font-weight:600;min-height:1.4em}
+@media (max-width:899px){.kont{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:560px){form{grid-template-columns:minmax(0,1fr)}form .btn{width:100%;justify-content:center}}
+
+/* stopka */
+footer{background:var(--deep);color:#c9d8ea;padding:clamp(48px,5vw,80px) 0 26px;font-size:.95rem}
+.st{display:grid;grid-template-columns:minmax(0,1.4fr) repeat(3,minmax(0,1fr));gap:32px}
+footer .logo{color:#fff}
+footer .opis{margin-top:18px;max-width:380px}
+footer .fh{margin:0 0 12px;font-weight:700;color:#fff;font-size:1rem;font-stretch:110%}
+footer ul{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+footer a{text-decoration:none}
+footer a:hover{color:#fff}
+.dol{margin-top:44px;padding-top:20px;border-top:1px solid rgba(255,255,255,.15);display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 24px;font-size:.88rem;line-height:1.4}
+@media (max-width:899px){.st{grid-template-columns:repeat(2,minmax(0,1fr))}.st>div:first-child{grid-column:1/-1}}
+
+/* pasek telefonu po przewinieciu (tel.) */
+.mob{position:fixed;left:0;right:0;bottom:0;z-index:40;display:none;grid-template-columns:1fr 1fr;transform:translateY(100%);transition:transform .25s}
+.mob a{display:flex;align-items:center;justify-content:center;gap:8px;min-height:54px;font-weight:700;text-decoration:none;font-stretch:108%}
+.mob a:first-child{background:#fff;color:var(--navy);border-top:1px solid var(--line)}
+.mob a:last-child{background:var(--navy);color:#fff}
+.mob.widac{transform:none}
+@media (max-width:899px){.mob{display:grid}body{padding-bottom:0}}
+
+.wylinka-badge{display:inline-flex;align-items:center;gap:.4em;color:inherit;text-decoration:none;font-size:.875em;line-height:1;opacity:.85}
+.wylinka-badge:hover,.wylinka-badge:focus-visible{opacity:1}
+.wylinka-badge:focus-visible{outline:2px solid currentColor;outline-offset:3px;border-radius:2px}
+.wylinka-badge svg{width:18px;height:18px;flex:none;overflow:visible}
+.wylinka-badge b{font-weight:600}
+.wylinka-badge .wy-old{opacity:.45;transform-origin:40px 30px;transition:transform .32s cubic-bezier(.3,.7,.4,1),opacity .32s ease-out}
+.wylinka-badge .wy-pod{opacity:0;transition:opacity .2s ease-out .08s}
+.wylinka-badge:hover .wy-old,.wylinka-badge:focus-visible .wy-old{transform:translate(9px,7px) rotate(9deg);opacity:0}
+.wylinka-badge:hover .wy-pod,.wylinka-badge:focus-visible .wy-pod{opacity:1}
+@media (prefers-reduced-motion:reduce){.wylinka-badge .wy-old,.wylinka-badge .wy-pod{transition:none}.wylinka-badge:hover .wy-old,.wylinka-badge:focus-visible .wy-old{transform:none;opacity:.45}.wylinka-badge:hover .wy-pod,.wylinka-badge:focus-visible .wy-pod{opacity:0}}
+
+
+.dol .wylinka-badge{font-size:1em;line-height:1.4}.dol .wylinka-badge svg{width:1.15em;height:1.15em}
+</style>
+</head>
+<body>
+<a class="skip" href="#tresc">Przejdź do treści</a>
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="logo" href="#" aria-label="fourTC - strona główna">
+      <svg class="zn" viewBox="-4 2 274 274" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="12"><path d="M3,139 L132,8 L165,41"/><path d="M70,75 L100,106 L132,74"/><path d="M40,112 L100,172"/><path d="M3,139 L101,237 L132,268 L165,235"/><path d="M133,139 L167,172 L101,237"/><path d="M197,75 L263,139 L197,204"/><path d="M163,106 L229,172"/></g></svg>
+      <svg class="wm" viewBox="0 3 167 34" aria-hidden="true"><text x="0" y="36" font-family="Saira,'Saira fb',Arial" font-weight="800" font-size="44" fill="currentColor" style="font-stretch:125%">four<tspan font-weight="600" fill="none" stroke="currentColor" stroke-width="2.2" dx="3">TC</tspan></text></svg>
+    </a>
+    <a class="ikt" href="tel:+48530427979" aria-label="Zadzwoń: 530 427 979"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2z" stroke-linejoin="miter"/></svg></a>
+    <button class="burger" aria-label="Menu" aria-expanded="false" aria-controls="menu"><span></span></button>
+    <nav class="menu" id="menu" aria-label="Główne menu">
+      <a href="#ochrona">Cyberbezpieczeństwo</a>
+      <a href="#infrastruktura">Infrastruktura IT</a>
+      <a href="#platformy">logTC i siemTC</a>
+      <a href="#realizacje">Realizacje</a>
+      <a href="#o-nas">O nas</a>
+      <a class="tel" href="tel:+48530427979">530 427 979</a>
+      <a class="btn" href="#kontakt">Kontakt <i></i></a>
+    </nav>
+  </div>
+</header>
+
+<main id="tresc">
+<section class="hero" aria-label="fourTC">
+  <div class="mz" aria-hidden="true"><svg viewBox="-500 -500 1000 1000" preserveAspectRatio="xMidYMid slice"><g transform="rotate(45)"><g class="mz-w" fill="none" stroke-linecap="square"><path d="M-7.7,70.0 L-70.0,70.0 L-70.0,-70.0 L70.0,-70.0 L70.0,70.0 L7.7,70.0"/><path d="M15.4,-140.0 L140.0,-140.0 L140.0,140.0 L-140.0,140.0 L-140.0,-140.0 L-15.4,-140.0"/><path d="M210.0,-102.9 L210.0,210.0 L-210.0,210.0 L-210.0,107.1"/><path d="M-210.0,60.9 L-210.0,-210.0 L210.0,-210.0 L210.0,-149.1"/><path d="M280.0,86.8 L280.0,280.0 L-280.0,280.0 L-280.0,-280.0 L280.0,-280.0 L280.0,25.2"/><path d="M318.5,-350.0 L350.0,-350.0 L350.0,350.0 L-101.5,350.0"/><path d="M-178.5,350.0 L-350.0,350.0 L-350.0,-350.0 L241.5,-350.0"/><path d="M-163.8,-420.0 L420.0,-420.0 L420.0,420.0 L-420.0,420.0 L-420.0,382.2"/><path d="M-420.0,289.8 L-420.0,-420.0 L-256.2,-420.0"/><path d="M490.0,-93.1 L490.0,490.0 L-490.0,490.0 L-490.0,-490.0 L490.0,-490.0 L490.0,-200.9"/><path d="M70.0,-56.0 L140.0,-112.0"/><path d="M-140.0,140.0 L-210.0,210.0"/><path d="M210.0,-189.0 L280.0,-252.0"/><path d="M112.0,-280.0 L140.0,-350.0"/><path d="M350.0,280.0 L420.0,336.0"/><path d="M140.0,350.0 L168.0,420.0"/><path d="M420.0,168.0 L490.0,196.0"/><path d="M-336.0,420.0 L-392.0,490.0"/></g><path class="mz-p" d="M550.0,-165.0 L455.0,-136.5 L455.0,-455.0 L-227.5,-455.0 L-192.5,-385.0 L-385.0,-385.0 L-385.0,385.0 L-154.0,385.0 L-126.0,315.0 L315.0,315.0 L315.0,63.0 L245.0,49.0 L245.0,245.0 L-245.0,245.0 L-245.0,98.0 L-175.0,70.0 L-175.0,-175.0 L0.0,-175.0 L0.0,-105.0 L-105.0,-105.0 L-105.0,105.0 L0.0,105.0 L0.0,0.0" fill="none" stroke-linejoin="miter" style="--len:5135"/><rect class="mz-c" x="-26" y="-26" width="52" height="52"/></g></svg></div>
+  <div class="wrap">
+    <div class="hero-in">
+      <p class="gdzie">fourTC, Gdańsk</p>
+      <h1>Cyberbezpieczeństwo i&nbsp;infrastruktura IT dla firm i&nbsp;instytucji</h1>
+      <p class="lead">Projektujemy, wdrażamy i utrzymujemy środowiska IT tak, żeby intruz trafiał na ściany, a Państwa dane miały jedną, pilnowaną drogę. Do tego własne platformy logTC i siemTC.</p>
+      <div class="cta">
+        <a class="btn jas" href="#kontakt"><span>Porozmawiajmy<span class="dl"> o&nbsp;Państwa IT</span></span> <i></i></a>
+        <span class="motto">Security <b>matters</b></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="ochrona">
+  <div class="wrap">
+    <div class="rysa" aria-hidden="true"></div>
+    <div class="glowa">
+      <h2>Zabezpieczenia dopasowane do realnego ryzyka</h2>
+      <p>Środowiska IT są coraz bardziej złożone. Zaczynamy od sprawdzenia, gdzie są luki, a potem dobieramy zabezpieczenia do specyfiki organizacji, zamiast wdrażać wszystko na zapas.</p>
+    </div>
+    <div class="ochrona">
+      <article>
+        <svg class="zn" viewBox="0 0 26 26" aria-hidden="true"><path d="M13 2 24 13 13 24 2 13Z" fill="none" stroke="#003070" stroke-width="2.5"/><path d="M13 8v10" stroke="#003070" stroke-width="2.5"/></svg>
+        <h3>Audyt bezpieczeństwa IT</h3>
+        <p>Analizujemy infrastrukturę firmy, wykrywamy luki w systemach i wskazujemy, co poprawić najpierw.</p>
+      </article>
+      <article>
+        <svg class="zn" viewBox="0 0 26 26" aria-hidden="true"><path d="M13 2 24 13 13 24 2 13Z" fill="none" stroke="#003070" stroke-width="2.5"/><path d="M13 7 19 13 13 19 7 13Z" fill="#003070"/></svg>
+        <h3>Ochrona infrastruktury</h3>
+        <p>Wdrażamy zabezpieczenia sieci i serwerów, które ograniczają ryzyko ataków i naruszeń danych.</p>
+      </article>
+      <article>
+        <svg class="zn" viewBox="0 0 26 26" aria-hidden="true"><path d="M13 2 24 13 13 24 2 13Z" fill="none" stroke="#003070" stroke-width="2.5"/><path d="M8 13h10M13 8l5 5-5 5" fill="none" stroke="#003070" stroke-width="2.5"/></svg>
+        <h3>Zarządzanie incydentami</h3>
+        <p>Szybko reagujemy na naruszenia bezpieczeństwa i ograniczamy ich skutki dla działania organizacji.</p>
+      </article>
+      <article>
+        <svg class="zn" viewBox="0 0 26 26" aria-hidden="true"><path d="M13 2 24 13 13 24 2 13Z" fill="none" stroke="#003070" stroke-width="2.5"/><path d="M8 11h10M8 15h10" stroke="#003070" stroke-width="2.5"/></svg>
+        <h3>Konsultacje i szkolenia</h3>
+        <p>Praktyczne szkolenia, po których pracownicy stają się pierwszą linią obrony, a nie najsłabszym ogniwem.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="szary" id="infrastruktura">
+  <div class="wrap">
+    <div class="rysa" aria-hidden="true"></div>
+    <div class="glowa">
+      <h2>Infrastruktura IT od projektu po codzienne utrzymanie</h2>
+      <p>Dobrze zaprojektowana infrastruktura pozwala skupić się na biznesie, zamiast martwić się o niezawodność systemów. Prowadzimy ją na każdym etapie.</p>
+    </div>
+    <div class="etapy">
+      <div class="etap">
+        <h3>Projektowanie</h3>
+        <p>Architektura IT i doradztwo: serwery, macierze dyskowe, sieci LAN/WAN, wirtualizacja i rozwiązania chmurowe.</p>
+        <ul><li>serwery</li><li>macierze</li><li>LAN/WAN</li><li>wirtualizacja</li><li>chmura</li></ul>
+      </div>
+      <div class="etap">
+        <h3>Wdrożenia</h3>
+        <p>Dostawy i wdrożenia serwerów, pamięci masowych, urządzeń sieciowych i sprzętu do centrów danych, a także licencji i oprogramowania dla firm.</p>
+        <ul><li>pamięci masowe</li><li>sprzęt sieciowy</li><li>data center</li><li>licencje</li></ul>
+      </div>
+      <div class="etap">
+        <h3>Utrzymanie</h3>
+        <p>Administracja systemami i serwerami, monitoring, aktualizacje, optymalizacja środowisk i wsparcie techniczne.</p>
+        <ul><li>administracja</li><li>monitoring</li><li>aktualizacje</li><li>wsparcie</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="platformy">
+  <div class="wrap">
+    <div class="rysa" aria-hidden="true"></div>
+    <div class="glowa">
+      <h2>Własne platformy: logTC i siemTC</h2>
+      <p>Zdarzenia z całej infrastruktury w jednym miejscu. logTC zbiera i przechowuje logi, siemTC na ich podstawie wykrywa zagrożenia i wspiera reakcję na incydenty.</p>
+    </div>
+    <div class="plat">
+      <article class="pk">
+        <div class="naz">log<span>TC</span></div>
+        <div class="pod">Centralne repozytorium logów. Jedno miejsce, pełna widoczność IT i OT.</div>
+        <svg class="sch" viewBox="0 0 520 200" aria-hidden="true">
+          <g class="l"><path d="M110 22H210L268 80"/><path d="M110 61H222L250 89"/><path d="M110 100H250"/><path d="M110 139H222L250 111"/><path d="M110 178H210L268 120"/><path d="M350 100H420"/></g>
+          <g><text x="0" y="27">serwery</text><text x="0" y="66">sieć</text><text x="0" y="105">aplikacje</text><text x="0" y="144">stacje robocze</text><text x="0" y="183">systemy OT</text></g>
+          <path class="b" d="M300 50 350 100 300 150 250 100Z"/><path class="bf" d="M300 80 320 100 300 120 280 100Z"/>
+          <rect class="b" x="420" y="72" width="96" height="56"/><text x="436" y="97">analiza</text><text x="436" y="116">raporty</text>
+        </svg>
+        <ul>
+          <li><b>Zbieranie danych</b> <span>z systemów, aplikacji, serwerów, sieci i systemów przemysłowych</span></li>
+          <li><b>Monitorowanie zdarzeń</b> <span>i wizualizacja aktywności na bieżąco</span></li>
+          <li><b>Analiza i korelacja</b> <span>logów z wielu źródeł w jednym przedziale czasu</span></li>
+          <li><b>Długoterminowe przechowywanie</b> <span>zgodnie z polityką retencji</span></li>
+          <li><b>Indeksowanie i wyszukiwanie</b> <span>w dużych zbiorach danych</span></li>
+        </ul>
+        <p class="wd">Integracja przez Syslog, dedykowanego agenta (Windows, Linux, macOS, Solaris, AIX, HP-UX) lub tryb bezagentowy.</p>
+      </article>
+      <article class="pk d">
+        <div class="naz">siem<span>TC</span></div>
+        <div class="pod">Monitorowanie bezpieczeństwa i skuteczniejsze reagowanie na zagrożenia.</div>
+        <svg class="sch" viewBox="0 0 520 200" aria-hidden="true">
+          <g class="l"><path d="M70 40V100H210"/><path d="M70 160V100"/><path d="M310 100H380L420 60"/><path d="M380 100 420 140"/></g>
+          <g class="b"><rect x="22" y="10" width="96" height="30" fill="none"/><rect x="22" y="160" width="96" height="30" fill="none"/></g>
+          <text x="38" y="30">agenci</text><text x="38" y="180">Syslog</text>
+          <path class="b" d="M260 50 310 100 260 150 210 100Z"/><path class="bf" d="M260 80 280 100 260 120 240 100Z"/>
+          <text x="424" y="56">server</text><text x="424" y="104">indexer</text><text x="424" y="152">dashboard</text>
+          <path class="l" d="M380 100H418"/>
+        </svg>
+        <ul>
+          <li><b>SIEM z wybranymi mechanizmami XDR</b> <span>w jednej platformie</span></li>
+          <li><b>Analiza zachowań</b> <span>i wykrywanie anomalii, np. przejęć kont</span></li>
+          <li><b>Ochrona danych</b> <span>i wykrywanie potencjalnych wycieków</span></li>
+          <li><b>Audyt Active Directory</b> <span>i zmian uprawnień</span></li>
+          <li><b>Wskaźniki kompromitacji</b> <span>i obsługa incydentów z alertami</span></li>
+        </ul>
+        <p class="wd">Komponenty siemTC-server, siemTC-indexer i siemTC-dashboard oraz agenci na serwerach i stacjach roboczych.</p>
+      </article>
+    </div>
+    <div class="zgod">
+      <b>RODO i NIS2</b>
+      <p>Centralne repozytorium logów wspiera wymagania dotyczące rejestrowania, ochrony i przechowywania zdarzeń. Wdrożenie na maszynie wirtualnej, serwerze fizycznym, w klastrze, na serwerze dedykowanym w Polsce albo w chmurze publicznej (AWS, Azure, Google Cloud).</p>
+    </div>
+  </div>
+</section>
+
+<section class="szary" id="realizacje">
+  <div class="wrap">
+    <div class="rysa" aria-hidden="true"></div>
+    <div class="glowa">
+      <h2>Przykładowe realizacje</h2>
+      <p>Projekty, w których liczyła się ciągłość działania: odtworzenie systemów po awarii, wysoka dostępność usług i przeniesienie zasobów do centrum danych.</p>
+    </div>
+    <div class="real" id="real">
+      <article class="rk">
+        <svg viewBox="0 0 300 130" aria-hidden="true"><path class="b" d="M70 15 120 65 70 115 20 65Z"/><path class="b" d="M230 15 280 65 230 115 180 65Z"/><path class="f" d="M70 45 90 65 70 85 50 65Z"/><path class="s" d="M120 65H180"/><path class="b" d="M230 50 245 65 230 80 215 65Z"/></svg>
+        <h3>Disaster Recovery</h3>
+        <p>Środowisko zapasowe, które pozwala odtworzyć kluczowe systemy po awarii lub niedostępności podstawowego centrum danych: replikacja danych, kopie zapasowe i procedury przełączania usług.</p>
+        <p class="wyn">Testy odtwarzania zgodne z założonymi RTO i RPO</p>
+      </article>
+      <article class="rk">
+        <svg viewBox="0 0 300 130" aria-hidden="true"><path class="b" d="M60 20 95 55 60 90 25 55Z"/><path class="b" d="M150 20 185 55 150 90 115 55Z"/><path class="f" d="M240 20 275 55 240 90 205 55Z"/><path class="b" d="M40 115H260"/><path class="b" d="M60 90V115M150 90V115M240 90V115"/></svg>
+        <h3>Klaster serwerowy</h3>
+        <p>Węzły obliczeniowe, współdzielona przestrzeń dyskowa i automatyczne przełączanie obciążeń, gdy jeden z serwerów ulegnie awarii.</p>
+        <p class="wyn">Wysoka dostępność usług i mniejsze ryzyko przestojów</p>
+      </article>
+      <article class="rk">
+        <svg viewBox="0 0 300 130" aria-hidden="true"><rect class="b" x="110" y="8" width="80" height="114"/><path class="b" d="M122 30H178M122 50H178M122 70H178M122 90H178"/><path class="s" d="M20 65H110"/><path class="f" d="M30 55 40 65 30 75 20 65Z"/><path class="b" d="M190 65H280"/></svg>
+        <h3>Kolokacja w Data Center</h3>
+        <p>Przeniesienie zasobów do profesjonalnego centrum danych: serwery i urządzenia sieciowe w szafach rack, połączenia telekomunikacyjne i integracja z infrastrukturą klienta.</p>
+        <p class="wyn">Niezawodne zasilanie, chłodzenie i łączność</p>
+      </article>
+    </div>
+    <div class="nawig"><button class="wst" type="button" aria-label="Poprzednia realizacja"><i></i></button><button class="dal" type="button" aria-label="Następna realizacja"><i></i></button><span id="licz">1 / 3</span></div>
+  </div>
+</section>
+
+<section id="o-nas">
+  <div class="wrap onas">
+    <div class="tekst">
+      <div class="rysa" aria-hidden="true"></div>
+      <h2>Zespół od bezpieczeństwa, sieci, backupu i infrastruktury</h2>
+      <p>Tworzymy zespół specjalistów, którzy projektują rozwiązania dopasowane do rzeczywistego ryzyka i specyfiki organizacji.</p>
+      <p>Dzięki odpowiednio zaprojektowanej infrastrukturze nasi klienci mogą skupić się na swoim biznesie, zamiast martwić się o bezpieczeństwo i niezawodność systemów IT. Pracujemy dla firm i instytucji.</p>
+      <ul class="obsz"><li>cyberbezpieczeństwo</li><li>sieci komputerowe</li><li>backup</li><li>infrastruktura IT</li><li>szkolenia</li></ul>
+    </div>
+    <div class="dane">
+      <h3>Dane firmy</h3>
+      <dl>
+        <dt>Nazwa</dt><dd>fourTC Prosta Spółka Akcyjna</dd>
+        <dt>Adres</dt><dd>ul. Jana Heweliusza 11/811, 80-890 Gdańsk</dd>
+        <dt>KRS</dt><dd>0001177021</dd>
+        <dt>NIP</dt><dd>5833539429</dd>
+        <dt>REGON</dt><dd>541938701</dd>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<section class="szary" id="kontakt">
+  <div class="wrap kont">
+    <div>
+      <div class="rysa" aria-hidden="true"></div>
+      <h2>Porozmawiajmy o Państwa infrastrukturze</h2>
+      <p style="margin-top:20px;color:var(--mut)">Proszę opisać krótko, czego dotyczy sprawa: audyt, incydent, nowa infrastruktura albo wdrożenie logTC lub siemTC. Odpowiemy z propozycją kolejnego kroku.</p>
+      <div class="kdane">
+        <a href="tel:+48530427979"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2z"/></svg><span><b>+48 530 427 979</b><small>telefon</small></span></a>
+        <a href="mailto:biuro@fourtc.pl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5h18v14H3zM3 5l9 8 9-8"/></svg><span><b>biuro@fourtc.pl</b><small>e-mail</small></span></a>
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 21 11 12 22 3 11Z"/><path d="M12 8 15 11 12 14 9 11Z"/></svg><span><b>ul. Jana Heweliusza 11/811</b><small>80-890 Gdańsk</small></span></div>
+      </div>
+    </div>
+    <form id="form" novalidate>
+      <label>Imię i nazwisko<input name="n" autocomplete="name" required></label>
+      <label>Firma lub instytucja<input name="f" autocomplete="organization"></label>
+      <label>E-mail<input name="e" type="email" autocomplete="email" required></label>
+      <label>Telefon<input name="t" type="tel" autocomplete="tel"></label>
+      <label class="cala">Czego dotyczy sprawa
+        <select name="s"><option>Audyt bezpieczeństwa IT</option><option>Incydent bezpieczeństwa</option><option>Projekt lub wdrożenie infrastruktury</option><option>Utrzymanie infrastruktury IT</option><option>logTC</option><option>siemTC</option><option>Szkolenia</option><option>Inna sprawa</option></select>
+      </label>
+      <label class="cala">Wiadomość<textarea name="w" required></textarea></label>
+      <label class="zg cala"><input type="checkbox" required> Wyrażam zgodę na kontakt w sprawie zapytania.</label>
+      <button class="btn" type="submit">Wyślij wiadomość <i></i></button>
+      <p class="info" id="info" aria-live="polite"></p>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="st">
+      <div>
+        <a class="logo" href="#" aria-label="fourTC">
+          <svg class="zn" viewBox="-4 2 274 274" aria-hidden="true" style="width:38px;height:38px"><g fill="none" stroke="currentColor" stroke-width="12"><path d="M3,139 L132,8 L165,41"/><path d="M70,75 L100,106 L132,74"/><path d="M40,112 L100,172"/><path d="M3,139 L101,237 L132,268 L165,235"/><path d="M133,139 L167,172 L101,237"/><path d="M197,75 L263,139 L197,204"/><path d="M163,106 L229,172"/></g></svg>
+          <svg class="wm" viewBox="0 3 167 34" aria-hidden="true" style="height:26px;width:auto"><text x="0" y="36" font-family="Saira,'Saira fb',Arial" font-weight="800" font-size="44" fill="currentColor" style="font-stretch:125%">four<tspan font-weight="600" fill="none" stroke="currentColor" stroke-width="2.2" dx="3">TC</tspan></text></svg>
+        </a>
+        <p class="opis">Cyberbezpieczeństwo i infrastruktura IT dla firm i instytucji. Security matters.</p>
+      </div>
+      <div><p class="fh">Oferta</p><ul><li><a href="#ochrona">Cyberbezpieczeństwo</a></li><li><a href="#infrastruktura">Infrastruktura IT</a></li><li><a href="#realizacje">Realizacje</a></li></ul></div>
+      <div><p class="fh">Platformy</p><ul><li><a href="#platformy">logTC</a></li><li><a href="#platformy">siemTC</a></li><li><a href="#o-nas">O nas</a></li></ul></div>
+      <div><p class="fh">Kontakt</p><ul><li><a href="tel:+48530427979">530 427 979</a></li><li><a href="mailto:biuro@fourtc.pl">biuro@fourtc.pl</a></li><li>Gdańsk</li></ul></div>
+    </div>
+    <div class="dol"><span>© 2026 fourTC P.S.A., Gdańsk</span><a class="wylinka-badge" href="https://wylinka.pl/?utm_source=fourtc.pl&amp;utm_medium=stopka&amp;utm_campaign=wykonanie" rel="noopener" title="Strona wykonana przez Wylinka"><svg viewBox="0 0 64 64" aria-hidden="true" focusable="false" fill="currentColor"><path d="M9.8 22.8l-1.2-7.9 2.2-3.7 15.5 4.6-.5 1.5-7.2 5.5 4.7 15.6 5-15.6 7 0 4.1 12.7-4.2-.9-2.6 1.8-.8-2.2-5.3 15.6-4.3 0 .4 .2-2.1 2.8-1.3-1.1 1.1-1.4-3.1 .2-.1-1.7 2.2-.1-5.7-16.5-4.8 .6-.8 3.1 0 .5-.3 .5 .8 2.2-1.6 .5-.4-1.3-.8 1.6-1.5-.8 .8-1.6-1.4 .6-.6-1.6 2.3-.8 .2-.4 1.3-4.8 5.9-.8-2.4-6.9zM15.2 13.7l-.1-.4-.4 .8-.1 .8 .1 1 .1 .4 .3 .7 .3-.9 .1-.7 0-.8z"/><path class="wy-pod" d="M37.1 49.8l-4.5-13.3 2.6-1.8 4.2 .9 .9 2.8 3-9.7 0-.5 .1-.8 3.2-8.4 .5-1 .6-1 .9-1.1 1.3-1 1.1-.7 1.4-.5 1.4-.3 .7 0 .9 0 1.2 .3 1.4 .6 .8 .5 .7 .7 .6 .7 .5 .9 .3 .9 .1 .9 0 .8-.2 .9-.5 .9-.5 .6-.7 .5-.7 .3-.1-.1 0-.1 .5-.5 .3-.7 .2-.5 0-.6-.1-.6-.3-.7-.4-.5-.4-.4-.5-.3-.6-.3-.7 0-.7 .1-.6 .1-.5 .4-.5 .5-.3 .5-.2 .7-.1 1.5-1.4 5.1-.8 3.3-.3 .7-.5 .7-6 17.5 1.9 .1-.1 1.7-3.1-.2 1.1 1.4-1.3 1.1-2.1-2.8 .4-.2z"/><path class="wy-old" d="M40.8 50l.4-.2-4.1 0-4.2-12.5 2.5-1.7 4.3 .9 .6 1.9 .6-1.6 0-.3 2.4-7.8 0-.5 .1-.8 3.2-8.4 .4-.8 .6-.9 .9-1.2 .9-.9 1.3-.8 1.4-.6 1.2-.3 1.4-.1 1.3 .1 .6 .2 .8 .3 1.1 .6 .9 .7 .7 .9 .5 .9 .3 .9 .1 1.1-.1 .9-.3 .9-.4 .7-.6 .7-.6 .4-.6 .2-.1-.1 0-.1 .5-.5 .3-.7 .2-.5 0-.5-.1-.6-.2-.6-.3-.5-.4-.5-.5-.3-.6-.3-.7-.1-.6 0-.6 .1-.6 .3-.6 .5-.3 .4-.2 .5-.1 .5-.1 1.5-1.4 5.1-.8 3.3-.3 .7-.5 .7-6 17.5 1.9 .1-.1 1.7-3.1-.2 1.1 1.4-1.3 1.1zM49.6 17.1l.6 1.7-1.5 1.9 .4 .4 1.8-2.1-.7-2.1zM48.1 28.3l.5 1.8-1.7 1.8 .4 .4 1.9-2-.6-2.2zM37.9 41.7l1.7-1.5-.4-.4-1.7 1.4zM42.6 38.7l-1.5 2.8 1.1 2-1.3 2.6 .5 .2 1.5-2.8-1.1-2 1.4-2.5z"/></svg><span>wykonanie: <b>Wylinka</b></span></a></div>
+  </div>
+</footer>
+<nav class="mob" id="mob" aria-label="Szybki kontakt"><a href="tel:+48530427979">Zadzwoń</a><a href="#kontakt">Napisz</a></nav>
+<script>
+(function(){
+var top=document.getElementById('top'),b=top.querySelector('.burger'),m=document.getElementById('menu');
+b.addEventListener('click',function(){var o=top.classList.toggle('open');b.setAttribute('aria-expanded',o)});
+m.addEventListener('click',function(e){if(e.target.closest('a')){top.classList.remove('open');b.setAttribute('aria-expanded','false')}});
+var mob=document.getElementById('mob'),hero=document.querySelector('.hero');
+addEventListener('scroll',function(){top.classList.toggle('sc',scrollY>8)},{passive:true});
+if('IntersectionObserver' in window){new IntersectionObserver(function(en){mob.classList.toggle('widac',!en[0].isIntersecting)},{threshold:0}).observe(hero.querySelector('.cta'));
+var links=[].slice.call(m.querySelectorAll('a[href^="#"]:not(.btn)'));
+var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){links.forEach(function(l){l.classList.toggle('on',l.getAttribute('href')==='#'+x.target.id)})}})},{rootMargin:'-45% 0px -50% 0px'});
+document.querySelectorAll('main section[id]').forEach(function(s){io.observe(s)})}
+/* karuzela realizacji: palec + mysz + strzalki */
+var r=document.getElementById('real'),licz=document.getElementById('licz'),n=r.children.length,down=false,sx=0,sl=0,moved=false;
+function krok(){return r.children[0].getBoundingClientRect().width+parseFloat(getComputedStyle(r).columnGap||0)}
+function upd(){licz.textContent=(Math.min(n,Math.round(r.scrollLeft/krok())+1))+' / '+n}
+r.addEventListener('scroll',upd,{passive:true});
+document.querySelector('.nawig .dal').onclick=function(){r.scrollBy({left:krok(),behavior:'smooth'})};
+document.querySelector('.nawig .wst').onclick=function(){r.scrollBy({left:-krok(),behavior:'smooth'})};
+r.addEventListener('pointerdown',function(e){if(e.pointerType!=='mouse')return;down=true;moved=false;sx=e.clientX;sl=r.scrollLeft});
+addEventListener('pointermove',function(e){if(!down)return;var d=e.clientX-sx;if(Math.abs(d)>4){moved=true;r.classList.add('drag')}r.scrollLeft=sl-d});
+addEventListener('pointerup',function(){if(!down)return;down=false;r.classList.remove('drag');var k=krok();r.scrollTo({left:Math.round(r.scrollLeft/k)*k,behavior:'smooth'})});
+r.addEventListener('click',function(e){if(moved){e.preventDefault();e.stopPropagation()}},true);
+/* formularz pokazowy */
+document.getElementById('form').addEventListener('submit',function(e){e.preventDefault();document.getElementById('info').textContent='To podgląd strony - formularz nie wysyła jeszcze wiadomości. Prosimy o kontakt: 530 427 979 lub biuro@fourtc.pl.'});
+})();
+</script>
+</body>
+</html>
